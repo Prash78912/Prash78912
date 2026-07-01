@@ -24,15 +24,51 @@ jobs:
 
       - name: Show Current Subscription
         run: |
-          echo "Current Subscription:"
+          echo "=============================="
+          echo "CURRENT SUBSCRIPTION"
+          echo "=============================="
           az account show --output table
+
+      - name: List All Resource Groups
+        run: |
+          echo "=============================="
+          echo "RESOURCE GROUPS"
+          echo "=============================="
+          az group list --output table
 
       - name: List All Azure Container Registries
         run: |
-          echo "Azure Container Registries:"
+          echo "=============================="
+          echo "AZURE CONTAINER REGISTRIES"
+          echo "=============================="
           az acr list --output table
 
       - name: Show Registry Names Only
         run: |
-          echo "Registry Names:"
+          echo "=============================="
+          echo "REGISTRY NAMES"
+          echo "=============================="
           az acr list --query "[].name" --output table
+
+      - name: Registry Count
+        run: |
+          echo "=============================="
+          echo "REGISTRY COUNT"
+          echo "=============================="
+          az acr list --query "length(@)"
+
+      - name: List Registry Resources
+        run: |
+          echo "=============================="
+          echo "ACR RESOURCE TYPE"
+          echo "=============================="
+          az resource list \
+            --resource-type Microsoft.ContainerRegistry/registries \
+            --output table
+
+      - name: List All Resources
+        run: |
+          echo "=============================="
+          echo "ALL AZURE RESOURCES"
+          echo "=============================="
+          az resource list --output table
